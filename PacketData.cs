@@ -78,14 +78,14 @@ namespace ExampleAddon {
     /// <summary>
     /// The enum class representing packet IDs for server to client communication.
     /// </summary>
-    public enum ServerPacketId {
+    public enum ClientPacketId {
         PacketId1
     }
     
     /// <summary>
     /// The enum class representing packet IDs for client to server communication.
     /// </summary>
-    public enum ClientPacketId {
+    public enum ServerPacketId {
         PacketId1
     }
 }

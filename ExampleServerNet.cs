@@ -20,18 +20,18 @@ namespace ExampleAddon {
             // We need to provide the type of the incoming packet ID enum (in this case ClientPacketId), the addon
             // instance (passed through this constructor) and a method that is able to instantiate IPacketData
             // classes given a packet ID
-            var netReceiver = netServer.GetNetworkReceiver<ClientPacketId>(addon, InstantiatePacket);
+            var netReceiver = netServer.GetNetworkReceiver<ServerPacketId>(addon, InstantiatePacket);
 
             // Get a network sender for this addon, which we can use to send packet data over the network.
             // We need to provide the type of the outgoing packet ID enum (in this case ServerPacketId) and
             // the addon instance (passed through this constructor).
-            var netSender = netServer.GetNetworkSender<ServerPacketId>(addon);
+            var netSender = netServer.GetNetworkSender<ClientPacketId>(addon);
             
             // Using the network receiver we register a handler for a specific enum value of the ClientPacketId
             // enum. We also provide the type of the packet data that we expect to get from this packet ID.
             // If this type does not match, the packet handler will throw an exception.
             netReceiver.RegisterPacketHandler<ServerPacketData>(
-                ClientPacketId.PacketId1,
+                ServerPacketId.PacketId1,
                 (id, packetData) => {
                     // Get the float from the packet data
                     var someFloat = packetData.SomeFloat;
@@ -40,9 +40,9 @@ namespace ExampleAddon {
                     logger.Info(this, $"Received server packet data from ID {id}: {someFloat}");
                     
                     // Then send response data to the client by flooring the received float
-                    netSender.SendSingleData(ServerPacketId.PacketId1, new ClientPacketData {
+                    netSender.SendSingleData(ClientPacketId.PacketId1, new ClientPacketData {
                         SomeUShort = (ushort) Math.Floor(someFloat)
-                    });
+                    }, id);
                 }
             );
         }
@@ -52,9 +52,9 @@ namespace ExampleAddon {
         /// </summary>
         /// <param name="packetId">The packet ID to instantiate a class for.</param>
         /// <returns>An instantiation of IPacketData.</returns>
-        private static IPacketData InstantiatePacket(ClientPacketId packetId) {
+        private static IPacketData InstantiatePacket(ServerPacketId packetId) {
             switch (packetId) {
-                case ClientPacketId.PacketId1:
+                case ServerPacketId.PacketId1:
                     return new ServerPacketData();
             }
 
