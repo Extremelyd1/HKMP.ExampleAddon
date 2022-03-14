@@ -6,23 +6,15 @@ namespace ExampleAddon {
     /// </summary>
     public class ExampleClientAddon : ClientAddon {
         /// <summary>
-        /// The constructor should always call the base constructor. This is one of the places where you have
-        /// access to the client API via the parameter.
-        /// </summary>
-        /// <param name="clientApi">The client API parameter.</param>
-        public ExampleClientAddon(IClientApi clientApi) : base(clientApi) {
-        }
-
-        /// <summary>
         /// The Initialize method should be overridden from the base class and can be used to start doing things
         /// with the API.
         /// </summary>
-        public override void Initialize() {
+        public override void Initialize(IClientApi clientApi) {
             // The Logger variable in the ClientAddon base class can be used to log things to the ModLog
             Logger.Info(this, "Initializing client-side example addon!");
 
             // We instantiate a new ExampleClientNet with the logger, this addon class and the client API
-            new ExampleClientNet(Logger, this, ClientApi);
+            new ExampleClientNet(Logger, this, clientApi);
         }
 
         /// <summary>

@@ -33,7 +33,7 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="HKMP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="HKMP">
           <HintPath>$(References)\HKMP.dll</HintPath>
         </Reference>
         <Reference Include="System" />

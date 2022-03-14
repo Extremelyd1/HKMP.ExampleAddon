@@ -37,7 +37,7 @@ namespace ExampleAddon {
 
             // For this example we register the PlayerConnect event and send packet data containing a float
             // with the packet ID "PacketId1", which should be registered by the server addon to receive this data
-            clientApi.ClientManager.PlayerConnectEvent += player => {
+            clientApi.ClientManager.ConnectEvent += () => {
                 logger.Info(this, "Player connected, sending PI to server");
                 
                 netSender.SendSingleData(ServerPacketId.PacketId1, new ServerPacketData {

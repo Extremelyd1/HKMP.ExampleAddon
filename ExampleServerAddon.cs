@@ -6,23 +6,15 @@ namespace ExampleAddon {
     /// </summary>
     public class ExampleServerAddon : ServerAddon {
         /// <summary>
-        /// The constructor should always call the base constructor. This is one of the places where you have
-        /// access to the server API via the parameter.
-        /// </summary>
-        /// <param name="serverApi">The server API parameter.</param>
-        public ExampleServerAddon(IServerApi serverApi) : base(serverApi) {
-        }
-
-        /// <summary>
         /// The Initialize method should be overridden from the base class and can be used to start doing things
         /// with the API.
         /// </summary>
-        public override void Initialize() {
+        public override void Initialize(IServerApi serverApi) {
             // The Logger variable in the ServerAddon base class can be used to log things to the ModLog
             Logger.Info(this, "Initializing server-side example addon!");
 
             // We instantiate a new ExampleClientNet with the logger, this addon class and the server API
-            new ExampleServerNet(Logger, this, ServerApi.NetServer);
+            new ExampleServerNet(Logger, this, serverApi.NetServer);
         }
 
         /// <summary>
