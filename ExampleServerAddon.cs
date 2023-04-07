@@ -11,7 +11,7 @@ namespace ExampleAddon {
         /// </summary>
         public override void Initialize(IServerApi serverApi) {
             // The Logger variable in the ServerAddon base class can be used to log things to the ModLog
-            Logger.Info(this, "Initializing server-side example addon!");
+            Logger.Info("Initializing server-side example addon!");
 
             // We instantiate a new ExampleClientNet with the logger, this addon class and the server API
             new ExampleServerNet(Logger, this, serverApi.NetServer);

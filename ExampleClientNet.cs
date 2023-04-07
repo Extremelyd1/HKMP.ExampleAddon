@@ -1,5 +1,5 @@
-﻿using Hkmp;
-using Hkmp.Api.Client;
+﻿using Hkmp.Api.Client;
+using Hkmp.Logging;
 using Hkmp.Networking.Packet;
 
 namespace ExampleAddon {
@@ -31,14 +31,14 @@ namespace ExampleAddon {
             netReceiver.RegisterPacketHandler<ClientPacketData>(
                 ClientPacketId.PacketId1,
                 packetData => {
-                    logger.Info(this, $"Received client packet data: {packetData.SomeUShort}");
+                    logger.Info($"Received client packet data: {packetData.SomeUShort}");
                 }
             );
 
             // For this example we register the PlayerConnect event and send packet data containing a float
             // with the packet ID "PacketId1", which should be registered by the server addon to receive this data
             clientApi.ClientManager.ConnectEvent += () => {
-                logger.Info(this, "Player connected, sending PI to server");
+                logger.Info("Player connected, sending PI to server");
                 
                 netSender.SendSingleData(ServerPacketId.PacketId1, new ServerPacketData {
                     SomeFloat = 3.141592f

@@ -1,7 +1,7 @@
 ﻿using System;
-using Hkmp;
 using Hkmp.Api.Server;
 using Hkmp.Api.Server.Networking;
+using Hkmp.Logging;
 using Hkmp.Networking.Packet;
 
 namespace ExampleAddon {
@@ -37,7 +37,7 @@ namespace ExampleAddon {
                     var someFloat = packetData.SomeFloat;
                     
                     // Log the player ID and the float value
-                    logger.Info(this, $"Received server packet data from ID {id}: {someFloat}");
+                    logger.Info($"Received server packet data from ID {id}: {someFloat}");
                     
                     // Then send response data to the client by flooring the received float
                     netSender.SendSingleData(ClientPacketId.PacketId1, new ClientPacketData {
